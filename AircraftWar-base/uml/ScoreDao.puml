@@ -1,0 +1,36 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface ScoreDao
+{
+    +doRead():void
+    +doWrite():void
+    +doAdd(ScoreData scoreData):void
+}
+class ScoreData
+{
+    -name:String
+    -score:int
+    -rank:int
+    -time:Date
+    +ScoreData(String name,int score,Date time)
+    +ScoreData(String s)
+    +getScore():int
+    +toString():String
+    +toStringArray():String[]
+    -setRank():void
+}
+class ScoreDaoImpl
+{
+    -scoreDatas:List<ScoreData>
+    -file:File
+    +ScoreDaoImpl(int difficulty)
+    +doAdd(ScoreData scoreData):void
+    +doDelete(int num):void
+    +doRead():void
+    +doWrite():void
+    +getDisplayArray():String[][]
+}
+ScoreDao<|..ScoreDaoImpl
+ScoreData<--ScoreDaoImpl
+@enduml

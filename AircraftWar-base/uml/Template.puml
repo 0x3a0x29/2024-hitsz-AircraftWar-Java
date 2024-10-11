@@ -1,0 +1,43 @@
+@startuml
+'https://plantuml.com/class-diagram
+class StartMenu
+{
+    +StartMenu()
+}
+Game<..StartMenu
+abstract class Game
+{
+    +Game(boolean music)
+    +action():void
+    #{abstract}enemyGenerate(List<AbstractEnemy> enemyAircrafts):void
+    #{abstract}difficultyBuff():void
+    -timeCountAndNewCycleJudge():boolean
+    -shootAction():void
+    -bulletsMoveAction():void
+    -propsMoveAction():void
+    -aircraftsMoveAction():void
+    -crashCheckAction():void
+    -postProcessAction():void
+}
+class EasyGame
+{
+    +EasyGame(boolean music)
+    #{abstract}enemyGenerate(List<AbstractEnemy> enemyAircrafts):void
+    #{abstract}difficultyBuff():void
+}
+class NormalGame
+{
+    +NormalGame(boolean music)
+    #{abstract}enemyGenerate(List<AbstractEnemy> enemyAircrafts):void
+    #{abstract}difficultyBuff():void
+}
+class HardGame
+{
+    +HardGame(boolean music)
+    #{abstract}enemyGenerate(List<AbstractEnemy> enemyAircrafts):void
+    #{abstract}difficultyBuff():void
+}
+Game<|--EasyGame
+Game<|--NormalGame
+Game<|--HardGame
+@enduml

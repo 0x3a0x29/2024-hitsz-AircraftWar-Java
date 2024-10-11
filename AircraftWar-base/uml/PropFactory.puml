@@ -1,0 +1,85 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface PropFactory
+{
+    +createProp(int locationX, int locationY, int speedX, int speedY, int attribute):Item
+}
+class BloodFactory
+{
+    +createProp(int locationX, int locationY, int speedX, int speedY, int attribute):Item
+}
+PropFactory <|.. BloodFactory
+class BombFactory
+{
+    +createProp(int locationX, int locationY, int speedX, int speedY, int attribute):Item
+}
+PropFactory <|.. BombFactory
+class BulletFactory
+{
+    +createProp(int locationX, int locationY, int speedX, int speedY, int attribute):Item
+}
+PropFactory <|.. BulletFactory
+class BulletPlusFactory
+{
+    +createProp(int locationX, int locationY, int speedX, int speedY, int attribute):Item
+}
+PropFactory <|.. BulletPlusFactory
+
+abstract class Item
+{
+    # observers:ArrayList
+    +Item(int locationX, int locationY, int speedX, int speedY)
+    +forward():void
+    + attachObserver(BasicObserver observer):void
+    + detachObserver(BasicObserver observer):void
+    + {abstract} itemActive(HeroAircraft heroAircraft):void
+}
+
+
+class Blood
+{
+    - blood:int
+    +Blood(int locationX, int locationY, int speedX, int speedY, int blood)
+    +itemActive(HeroAircraft heroAircraft):void
+    +getBlood():int
+}
+
+Item <|--Blood
+
+class Bullet
+{
+    - bullet:int
+    +Bullet(int locationX, int locationY, int speedX, int speedY, int bullet)
+    +itemActive(HeroAircraft heroAircraft):void
+    +getBullet():int
+}
+
+Item <|--Bullet
+
+class BulletPlus
+{
+    - bulletPlus:int
+    +BulletPlus(int locationX, int locationY, int speedX,
+     int speedY, int bulletPlus)
+    +itemActive(HeroAircraft heroAircraft):void
+    +getBullet():int
+}
+
+Item <|--BulletPlus
+class Bomb
+{
+    -bomb:int
+    +Bomb(int locationX, int locationY, int speedX, int speedY, int bomb)
+    +ItemActive(HeroAircraft heroAircraft):void
+    +getBomb():int
+}
+
+Item <|--Bomb
+
+PropFactory --> Item
+BulletFactory --> Bullet
+BulletPlusFactory --> BulletPlus
+BombFactory --> Bomb
+BloodFactory --> Blood
+@enduml

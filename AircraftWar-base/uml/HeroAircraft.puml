@@ -1,0 +1,60 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class AbstractFlyingObject
+{
+    # locationX:int
+    # locationY:int
+    # speedX:int
+    # speedY:int
+    # image:BufferedImage
+    # width:int
+    # height:int
+    # isValid:boolean
+
+    + AbstractFlyingObject(int locationX, int locationY, int speedX, int speedY)
+    + forward():void
+    + crash(AbstractFlyingObject flyingObject):boolean
+    + setLocation(double locationX, double locationY):void
+    + getLocationX():int
+    + getLocationY():int
+    + getSpeedY():int
+    + getImage():BufferedImage
+    + getWidth():int
+    + getHeight():int
+    + notValid():boolean
+    + vanish():void
+}
+abstract class AbstractAircraft
+{
+	# maxHp:int
+    # hp:int
+    # power:int
+    # direction:int
+    # strategy:ShootStrategy
+    + AbstractAircraft(int locationX, int locationY,
+     int speedX, int speedY,int hp,int power,int direction)
+    + decreaseHp(int decrease):void
+    + increaseHp(int increase):void
+    + getHp():int
+    + getMaxHp():int
+    + getPower():int
+    + getDirection():int
+    + setStrategy(ShootStrategy strategy):void
+    + {abstract} shoot():List<BaseBullet>
+ }
+class HeroAircraft {
+    + heroStateThread:Thread
+    - {static} instance:HeroAircraft
+    - {static} maxHp:int
+    - HeroAircraft(int locationX,int locationY,int speedX,
+                      int speedY,int hp,int power,int direction)
+    + forward():void
+    + shoot():List<BaseBullet>
+    + {static} getInstance():HeroAircraft
+}
+
+AbstractAircraft <|-- HeroAircraft
+AbstractFlyingObject <|-- AbstractAircraft
+HeroAircraft o--> HeroAircraft
+@enduml

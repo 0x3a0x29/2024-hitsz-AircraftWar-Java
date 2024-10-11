@@ -1,0 +1,76 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface EnemyFactory
+{
+    +createEnemy(int locationX, int locationY, int speedX, int speedY, int hp,
+          int power,int direction):AbstractEnemy
+}
+class MobEnemyFactory
+{
+    +createEnemy(int locationX, int locationY, int speedX, int speedY, int hp,
+               int power,int direction):AbstractEnemy
+}
+EnemyFactory <|.. MobEnemyFactory
+class EliteEnemyFactory
+{
+    +createEnemy(int locationX, int locationY, int speedX, int speedY, int hp,
+               int power,int direction):AbstractEnemy
+}
+EnemyFactory <|.. EliteEnemyFactory
+class SuperEliteEnemyFactory
+{
+    +createEnemy(int locationX, int locationY, int speedX, int speedY, int hp,
+               int power,int direction):AbstractEnemy
+}
+EnemyFactory <|.. SuperEliteEnemyFactory
+class BossEnemyFactory
+{
+    +createEnemy(int locationX, int locationY, int speedX, int speedY, int hp,
+               int power,int direction):AbstractEnemy
+}
+EnemyFactory <|.. BossEnemyFactory
+abstract class AbstractEnemy
+{
+     + AbstractAircraft(int locationX, int locationY, int speedX,
+     int speedY, int hp,int power,int direction)
+     + forward():void
+}
+class EliteEnemy {
+    + EliteEnemy(int locationX,int locationY,int speedX,
+    int speedY,int hp,int power,int direction)
+    + shoot():List<BaseBullet>
+    + response():void
+}
+
+AbstractEnemy <|-- EliteEnemy
+class SuperEliteEnemy {
+    + SuperEliteEnemy(int locationX,int locationY,int speedX,
+    int speedY,int hp,int power,int direction)
+    + shoot():List<BaseBullet>
+    + response():void
+}
+
+AbstractEnemy <|-- SuperEliteEnemy
+class BossEnemy {
+    + BossEnemy(int locationX,int locationY,int speedX,
+    int speedY,int hp,int power,int direction)
+    + shoot():List<BaseBullet>
+    + response():void
+}
+
+AbstractEnemy <|-- BossEnemy
+class MobEnemy {
+    + MobEnemy(int locationX,int locationY,int speedX,
+                  int speedY,int hp,int power,int direction)    + forward():void
+    + shoot():List<BaseBullet>
+    + response():void
+}
+AbstractEnemy <|-- MobEnemy
+
+EnemyFactory --> AbstractEnemy
+EliteEnemyFactory --> EliteEnemy
+MobEnemyFactory --> MobEnemy
+SuperEliteEnemyFactory --> SuperEliteEnemy
+BossEnemyFactory --> BossEnemy
+@enduml

@@ -1,0 +1,94 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface ShootStrategy
+{
+    +doShoot(AbstractAircraft aircraft):List<BaseBullet>
+}
+class SeparateShoot
+{
+    +doShoot(AbstractAircraft aircraft):List<BaseBullet>
+}
+class StraightShoot
+{
+    +doShoot(AbstractAircraft aircraft):List<BaseBullet>
+}
+class RingShoot
+{
+    +doShoot(AbstractAircraft aircraft):List<BaseBullet>
+}
+ShootStrategy<|.. SeparateShoot
+ShootStrategy<|.. StraightShoot
+ShootStrategy<|.. RingShoot
+abstract class AbstractAircraft
+{
+	# maxHp:int
+    # hp:int
+    # power:int
+    # direction:int
+    # strategy:ShootStrategy
+    + AbstractAircraft(int locationX, int locationY,
+     int speedX, int speedY,int hp,int power,int direction)
+    + decreaseHp(int decrease):void
+    + increaseHp(int increase):void
+    + getHp():int
+    + getMaxHp():int
+    + getPower():int
+    + getDirection():int
+    + setStrategy(ShootStrategy strategy):void
+    + {abstract} shoot():List<BaseBullet>
+ }
+AbstractAircraft o--> ShootStrategy
+abstract class AbstractEnemy
+{
+     + AbstractAircraft(int locationX, int locationY, int speedX,
+     int speedY, int hp,int power,int direction)
+     + forward():void
+}
+AbstractAircraft <|-- AbstractEnemy
+class BossEnemy {
+    + BossEnemy(int locationX,int locationY,int speedX,
+    int speedY,int hp,int power,int direction)
+    + shoot():List<BaseBullet>
+    + response():void
+}
+class EliteEnemy {
+    + EliteEnemy(int locationX,int locationY,int speedX,
+    int speedY,int hp,int power,int direction)
+    + shoot():List<BaseBullet>
+    + response():void
+}
+class MobEnemy {
+    + MobEnemy(int locationX,int locationY,int speedX,
+                  int speedY,int hp,int power,int direction)    + forward():void
+    + shoot():List<BaseBullet>
+    + response():void
+}
+class SuperEliteEnemy {
+    + SuperEliteEnemy(int locationX,int locationY,int speedX,
+    int speedY,int hp,int power,int direction)
+    + shoot():List<BaseBullet>
+    + response():void
+}
+AbstractEnemy <|-- MobEnemy
+AbstractEnemy <|-- EliteEnemy
+AbstractEnemy <|-- BossEnemy
+AbstractEnemy <|-- SuperEliteEnemy
+class HeroAircraft {
+    + heroStateThread:Thread
+    - {static} instance:HeroAircraft
+    - {static} maxHp:int
+    - HeroAircraft(int locationX,int locationY,int speedX,
+                      int speedY,int hp,int power,int direction)
+    + forward():void
+    + shoot():List<BaseBullet>
+    + {static} getInstance():HeroAircraft
+}
+
+AbstractAircraft <|-- HeroAircraft
+
+SeparateShoot<.. SuperEliteEnemy
+StraightShoot<.. EliteEnemy
+RingShoot<.. BossEnemy
+StraightShoot<.. HeroAircraft
+@enduml

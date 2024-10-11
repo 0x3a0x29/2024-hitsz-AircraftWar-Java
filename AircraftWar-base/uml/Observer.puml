@@ -1,0 +1,82 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface BasicObserver
+{
+    +{abstract}response():void
+}
+abstract class AbstractEnemy
+{
+     + AbstractAircraft(int locationX, int locationY, int speedX,
+     int speedY, int hp,int power,int direction)
+     + forward():void
+}
+BasicObserver <|.. AbstractEnemy
+BasicObserver <|.. BaseBullet
+class EliteEnemy {
+    + EliteEnemy(int locationX,int locationY,int speedX,
+    int speedY,int hp,int power,int direction)
+    + shoot():List<BaseBullet>
+    + response():void
+}
+AbstractEnemy <|-- EliteEnemy
+class MobEnemy {
+    + MobEnemy(int locationX,int locationY,int speedX,
+                  int speedY,int hp,int power,int direction)    + forward():void
+    + shoot():List<BaseBullet>
+    + response():void
+}
+AbstractEnemy <|-- MobEnemy
+class SuperEliteEnemy {
+    + SuperEliteEnemy(int locationX,int locationY,int speedX,
+    int speedY,int hp,int power,int direction)
+    + shoot():List<BaseBullet>
+    + response():void
+}
+AbstractEnemy <|-- SuperEliteEnemy
+class BossEnemy {
+    + BossEnemy(int locationX,int locationY,int speedX,
+    int speedY,int hp,int power,int direction)
+    + shoot():List<BaseBullet>
+    + response():void
+}
+AbstractEnemy <|-- BossEnemy
+abstract class BaseBullet
+{
+    - power:int
+    + BaseBullet(int locationX, int locationY, int speedX, int speedY, int power)
+    + forward():void
+	+ getPower():int
+}
+class HeroBullet {
+    + HeroBullet(int locationX, int locationY,
+     int speedX, int speedY, int power)
+    + response():void
+}
+class EnemyBullet {
+    + EnemyBullet(int locationX, int locationY,
+     int speedX, int speedY, int power)
+    + response():void
+}
+BaseBullet <|-- HeroBullet
+BaseBullet <|-- EnemyBullet
+abstract class Item
+{
+    # observers:ArrayList
+    +Item(int locationX, int locationY, int speedX, int speedY)
+    +forward():void
+    + attachObserver(BasicObserver observer):void
+    + detachObserver(BasicObserver observer):void
+    + {abstract} itemActive(HeroAircraft heroAircraft):void
+}
+class Bomb
+{
+    -bomb:int
+    +Bomb(int locationX, int locationY, int speedX, int speedY, int bomb)
+    +ItemActive(HeroAircraft heroAircraft):void
+    +getBomb():int
+}
+BasicObserver <--o Item
+Item <|-- Bomb
+BasicObserver <--o Bomb
+@enduml
